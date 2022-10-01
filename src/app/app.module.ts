@@ -1,7 +1,12 @@
-import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { FormsModule }   from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
+registerLocaleData(localePt);
 
 import { AppComponent } from './app.component';
 import { MenuComponent } from './navigation/menu/menu.component';
@@ -11,7 +16,8 @@ import { AboutComponent } from './institutional/about/about.component';
 import { ContactComponent } from './institutional/contact/contact.component';
 import { rootRouterConfig } from './app.routes';
 import { DataBindingComponent } from './demos/data-binding/data-binding.component';
-import { FormsModule } from '@angular/forms';
+import { ProductService } from './products/products.service';
+import { ListaProdutoComponent } from './products/lista-produto/lista-produto.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +27,18 @@ import { FormsModule } from '@angular/forms';
     FooterComponent,
     AboutComponent,
     ContactComponent,
-    DataBindingComponent
+    DataBindingComponent,
+    ListaProdutoComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(rootRouterConfig, { useHash: false })
+    HttpClientModule,
+    [RouterModule.forRoot(rootRouterConfig, { useHash: false})]
   ],
-  providers: [],
+  providers: [
+    ProductService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
